@@ -6,7 +6,7 @@ RUN apt update && \
       apt install --assume-yes python3-pip wget fuse binutils libglib2.0-0 && \
     pip3 install aqtinstall
 
-RUN aqt install 5.9.5 linux desktop -m all && cp -R ./5.9.5/gcc_64/* /usr && rm -rf ./5.9.5
+RUN aqt install 5.13.2 linux desktop -m all && cp -R ./5.13.2/gcc_64/* /usr && rm -rf ./5.13.2
 
 RUN apt install --assume-yes libgl1-mesa-glx libfontconfig1 libxi6 libdbus-1-3 libxcb-xfixes0 libegl1-mesa libcups2
 
