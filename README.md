@@ -1,4 +1,5 @@
-Installs Qt 9.5.9 (installation version on GitHub ubuntu-latest) and linuxqtdeploy v6
+Installs Qt 5.9.5 (installation version on GitHub ubuntu-latest) + other custom versions used in the
+Seamly2D repository, and linuxqtdeploy v6
 
 
 ```shell
