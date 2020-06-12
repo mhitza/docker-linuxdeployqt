@@ -10,7 +10,7 @@ RUN apt update && \
 
 RUN pip3 install "aqtinstall==0.8"
 
-RUN aqt install 5.14.2 linux desktop -m all && cp -R ./5.14.2/gcc_64/* /usr && rm -rf ./5.14.2
+RUN aqt install 5.15 linux desktop -m all && cp -R ./5.15/gcc_64/* /usr && rm -rf ./5.15
 
 RUN wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage \
       --quiet --output-document=/usr/bin/linuxdeployqt && \
