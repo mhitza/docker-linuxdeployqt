@@ -10,7 +10,7 @@ RUN apt update && \
 
 RUN pip3 install "aqtinstall==0.8"
 
-RUN aqt install 5.13.2 linux desktop -m all && cp -R ./5.13.2/gcc_64/* /usr && rm -rf ./5.13.2
+RUN aqt install 5.15.0 linux desktop -m all && cp -R ./5.15.0/gcc_64/* /usr && rm -rf ./5.15.0
 
 RUN wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage \
       --quiet --output-document=/usr/bin/linuxdeployqt && \
@@ -19,6 +19,10 @@ RUN wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdep
 # Minimal dependencies required to bundle Seamly2D (mostly GL/printer/font support)
 RUN apt update && \
       apt install --assume-yes libgl1-mesa-glx libfontconfig1 libxi6 libdbus-1-3 libxcb-xfixes0 libegl1-mesa libcups2 libxrender1 libxkbcommon-x11-0
+
+# Allow an easy way to bundle utility binaries within the same AppImage.
+# For example, binaries called directly by the primary target application
+ENV EXTRA_BINARIES ""
 
 COPY builder.sh .
 CMD ./builder.sh
