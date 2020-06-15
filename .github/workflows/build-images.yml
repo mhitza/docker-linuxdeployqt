@@ -23,6 +23,7 @@ jobs:
     env:
       IMAGE_NAME: "linuxdeployqt:${{ matrix.QT_VERSION }}"
       GITHUB_IMAGE_NAME: "docker.pkg.github.com/mhitza/docker-linuxdeployqt/linuxdeployqt:${{ matrix.QT_VERSION }}"
+      DOCKER_HUB_IMAGE_NAME: "mhitza/linuxdeployqt:${{ matrix.QT_VERSION }}"
 
     steps:
       - uses: actions/checkout@v2
@@ -48,3 +49,10 @@ jobs:
         run: |
           docker tag ${{ env.IMAGE_NAME }} ${{ env.GITHUB_IMAGE_NAME }}
           docker push ${{ env.GITHUB_IMAGE_NAME }}
+
+      - name: push to Hub.Docker registry
+        run: |
+          echo ${{ secrets.DOCKER_HUB_TOKEN }} \
+            | docker login -u mhitza --password-stdin
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.DOCKER_HUB_IMAGE_NAME }}
+          docker push ${{ env.DOCKER_HUB_IMAGE_NAME }}
