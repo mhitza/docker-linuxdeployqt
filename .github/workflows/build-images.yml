@@ -27,7 +27,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: pull existing image from GitHub packages
+      - name: login to GitHub docker registry
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} \
+            | docker login https://docker.pkg.github.com -u mhitza --password-stdin
+
+      - name: pull existing image from GitHub registry
         run: |
           docker pull ${{ env.GITHUB_IMAGE_NAME }} || true
 
@@ -38,11 +43,7 @@ jobs:
             -t ${{ env.IMAGE_NAME }} \
             .
 
-      - name: push to GitHub packages
+      - name: push to GitHub registry
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} \
-            | docker login https://docker.pkg.github.com -u mhitza --password-stdin
-
           docker tag ${{ env.IMAGE_NAME }} ${{ env.GITHUB_IMAGE_NAME }}
-
           docker push ${{ env.GITHUB_IMAGE_NAME }}
