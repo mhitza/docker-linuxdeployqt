@@ -7,6 +7,7 @@ on:
 jobs:
   worker:
     runs-on: ubuntu-latest
+
     strategy:
       # some builds might fail, continue if that happens
       fail-fast: false
@@ -18,11 +19,30 @@ jobs:
           - 5.13.2
           - 5.14.2
           - 5.15.0
+
+    env:
+      IMAGE_NAME: "linuxdeployqt:${{ matrix.QT_VERSION }}"
+      GITHUB_IMAGE_NAME: "docker.pkg.github.com/mhitza/docker-linuxdeployqt/${{ env.IMAGE_NAME }}"
+
     steps:
       - uses: actions/checkout@v2
+
+      - name: pull existing image from GitHub packages
+        run: |
+          docker pull ${{ env.GITHUB_IMAGE_NAME }} || true
+
       - name: build
         run: |
           docker build \
             --build-arg QT_VERSION=${{ matrix.QT_VERSION }} \
-            -t linuxdeployqt:${{ matrix.QT_VERSION }} \
+            -t ${{ env.IMAGE_NAME }} \
             .
+
+      - name: push to GitHub packages
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} \
+            | docker login https://docker.pkg.github.com -u mhitza --password-stdin
+
+          docker tag ${{ env.IMAGE_NAME }} ${{ env.GITHUB_IMAGE_NAME }}
+
+          docker push ${{ env.GITHUB_IMAGE_NAME }}
