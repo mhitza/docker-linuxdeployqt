@@ -22,7 +22,7 @@ jobs:
 
     env:
       IMAGE_NAME: "linuxdeployqt:${{ matrix.QT_VERSION }}"
-      GITHUB_IMAGE_NAME: "docker.pkg.github.com/mhitza/docker-linuxdeployqt/${{ env.IMAGE_NAME }}"
+      GITHUB_IMAGE_NAME: "docker.pkg.github.com/mhitza/docker-linuxdeployqt/linuxdeployqt:${{ matrix.QT_VERSION }}"
 
     steps:
       - uses: actions/checkout@v2
