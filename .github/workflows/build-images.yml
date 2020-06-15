@@ -1,0 +1,27 @@
+name: Build & Publish
+
+on:
+  push: [ master ]
+
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+    strategy:
+      # some builds might fail, continue if that happens
+      fail-fast: false
+      # can be tweaked depending on image layer reuse in parallel builds
+      max-parallel: 2
+      matrix:
+        QT_VERSION:
+          - 5.9.5
+          - 5.13.2
+          - 5.14.2
+          - 5.15.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          docker build \
+            --build-arg QT_VERSION=${{ matrix.QT_VERSION }} \
+            -t linuxdeployqt:${{ matrix.QT_VERSION }} \
+            .
