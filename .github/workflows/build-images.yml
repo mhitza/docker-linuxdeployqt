@@ -40,6 +40,7 @@ jobs:
         run: |
           docker build \
             --build-arg QT_VERSION=${{ matrix.QT_VERSION }} \
+            --cache-from ${{ env.GITHUB_IMAGE_NAME }} \
             -t ${{ env.IMAGE_NAME }} \
             .
 
