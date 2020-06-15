@@ -20,5 +20,9 @@ RUN wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdep
 RUN apt update && \
       apt install --assume-yes libgl1-mesa-glx libfontconfig1 libxi6 libdbus-1-3 libxcb-xfixes0 libegl1-mesa libcups2 libxrender1 libxkbcommon-x11-0
 
+# Allow an easy way to bundle utility binaries within the same AppImage.
+# For example, binaries called directly by the primary target application
+ENV EXTRA_BINARIES ""
+
 COPY builder.sh .
 CMD ./builder.sh
