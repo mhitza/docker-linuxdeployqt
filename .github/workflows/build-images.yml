@@ -12,16 +12,16 @@ jobs:
       # some builds might fail, continue if that happens
       fail-fast: false
       # can be tweaked depending on image layer reuse in parallel builds
-      max-parallel: 2
+      max-parallel: 3
       matrix:
         QT_VERSION:
-          - 5.9.5
-          - 5.10.1
-          - 5.11.3
-          - 5.12.9
-          - 5.13.2
-          - 5.14.2
           - 5.15.0
+          - 5.14.2
+          - 5.13.2
+          - 5.12.9
+          - 5.11.3
+          - 5.10.1
+          - 5.9.5
 
     env:
       IMAGE_NAME: "linuxdeployqt:${{ matrix.QT_VERSION }}"
