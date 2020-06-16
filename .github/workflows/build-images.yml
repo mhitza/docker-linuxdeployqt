@@ -46,16 +46,16 @@ jobs:
             --build-arg QT_VERSION=${{ matrix.QT_VERSION }} \
             --cache-from ${{ env.GITHUB_IMAGE_NAME }} \
             -t ${{ env.IMAGE_NAME }} \
-            .
+            -t ${{ env.GITHUB_IMAGE_NAME }} \
+            -t ${{ env.DOCKER_HUB_IMAGE_NAME }} \
+            build-context
 
       - name: push to GitHub registry
         run: |
-          docker tag ${{ env.IMAGE_NAME }} ${{ env.GITHUB_IMAGE_NAME }}
           docker push ${{ env.GITHUB_IMAGE_NAME }}
 
       - name: push to Hub.Docker registry
         run: |
           echo ${{ secrets.DOCKER_HUB_TOKEN }} \
             | docker login -u mhitza --password-stdin
-          docker tag ${{ env.IMAGE_NAME }} ${{ env.DOCKER_HUB_IMAGE_NAME }}
           docker push ${{ env.DOCKER_HUB_IMAGE_NAME }}
