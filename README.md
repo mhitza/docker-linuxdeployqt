@@ -1,5 +1,8 @@
 A docker packaged solution for AppImage packaging using [linuxdeployqt](https://github.com/probonopd/linuxdeployqt)
 
+Docker builds are published on [Docker Hub](https://hub.docker.com/r/mhitza/linuxdeployqt) and GitHub Registry
+(check the Packages section). For the most recent Qt versions built check the Actions tab.
+
 ## Motivation
 
 This container was written mostly to automate the AppImage packaging process of the Seamly2D repository. As linuxdeployqt has a strict dependency on a specific version of glibc, it felt easier to use a container instead of settings up Ubuntu 16.04 instances/GitHub runner.
