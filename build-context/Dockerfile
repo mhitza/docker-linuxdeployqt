@@ -22,7 +22,9 @@ RUN apt update && \
 # implicitly use the QT_VERSION argument
 ARG QT_VERSION
 
-RUN aqt install $QT_VERSION linux desktop -m all && cp -R ./$QT_VERSION/gcc_64/* /usr && rm -rf ./$QT_VERSION
+RUN aqt install $QT_VERSION linux desktop -m all -b https://mirrors.ocf.berkeley.edu/qt \
+    && cp -R ./$QT_VERSION/gcc_64/* /usr \
+    && rm -rf ./$QT_VERSION
 
 # Allow an easy way to bundle utility binaries within the same AppImage.
 # For example, binaries called directly by the primary target application
