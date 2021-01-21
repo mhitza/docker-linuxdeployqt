@@ -15,7 +15,7 @@ jobs:
       max-parallel: 3
       matrix:
         QT_VERSION:
-          - 5.15.0
+          - 5.15.2
           - 5.14.2
           - 5.13.2
           - 5.12.9
